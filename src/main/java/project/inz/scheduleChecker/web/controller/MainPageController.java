@@ -20,7 +20,7 @@ public class MainPageController {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @GetMapping("/mainPage")
+    @GetMapping("/showTeachers")
     @ResponseBody
     public String mainPage(){
 
@@ -30,7 +30,7 @@ public class MainPageController {
 
     public List<Teacher> findAll() {
 
-        String sql = "SELECT * FROM teachers";
+        String sql = "SELECT * FROM teachers"; //wczytywanie powinno byc po kolumnach nie po gwiazdkach, aby wartosci sie nie mieszały między wierszami
 
         List<Teacher> teacher = new ArrayList<>();
 
