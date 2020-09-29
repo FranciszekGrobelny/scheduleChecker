@@ -20,4 +20,6 @@ public class Teacher extends ParentEntity {
     private String hours;
 
     private String isSpecialist;
+
+
 }

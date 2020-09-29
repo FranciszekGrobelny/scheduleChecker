@@ -11,6 +11,6 @@ public class TeacherController {
     @GetMapping("/addTeacher")
     public String addTeacher(@ModelAttribute Teacher teacher){
 
-        return "/add/teacher.jsp";
+        return "/add/teachers.jsp";
     }
 }

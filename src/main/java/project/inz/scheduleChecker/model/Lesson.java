@@ -26,7 +26,7 @@ public class Lesson extends ParentEntity{
     private Topic topic;
 
     @OneToOne
-    private Room roomId;
+    private Room room;
 
     @OneToOne
     private Teacher teacher2;
@@ -35,5 +35,5 @@ public class Lesson extends ParentEntity{
     private Topic topic2;
 
     @OneToOne
-    private Room roomId2;
+    private Room room2;
 }

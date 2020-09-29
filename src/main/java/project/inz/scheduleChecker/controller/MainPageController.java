@@ -32,7 +32,7 @@ public class MainPageController {
 
         String sql = "SELECT * FROM teachers"; //wczytywanie powinno byc po kolumnach nie po gwiazdkach, aby wartosci sie nie mieszały między wierszami
 
-        List<Teacher> teacher = new ArrayList<>();
+        List<Teacher> teachers = new ArrayList<>();
 
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
 
@@ -43,9 +43,9 @@ public class MainPageController {
             obj.setHours((String) row.get("hours"));
             obj.setIsSpecialist((String) row.get("is_specialist"));
 
-            teacher.add(obj);
+            teachers.add(obj);
         }
 
-        return teacher;
+        return teachers;
     }
 }

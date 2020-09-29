@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" uuid="aea3a62c-f96d-4e32-bb7d-44e5c29daf6b">
+    <data-source source="LOCAL" name="@localhost" uuid="288977a5-83d9-4878-bc9f-dcb70841a0de">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/scheduleChecker?serverTimezone=UTC</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/?serverTimezone=UTC</jdbc-url>
     </data-source>
   </component>
 </project>
