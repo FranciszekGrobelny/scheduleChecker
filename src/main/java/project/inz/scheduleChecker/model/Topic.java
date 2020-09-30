@@ -1,4 +1,4 @@
-package project.inz.scheduleChecker.domain.model;
+package project.inz.scheduleChecker.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +13,5 @@ import javax.persistence.Table;
 @Getter @Setter @ToString
 public class Topic extends ParentEntity {
 
-    @Column(nullable = false)
     private String name;
 }

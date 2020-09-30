@@ -4,7 +4,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import project.inz.scheduleChecker.domain.model.Teacher;
+import project.inz.scheduleChecker.model.Teacher;
 
 import java.util.ArrayList;
 import java.util.List;

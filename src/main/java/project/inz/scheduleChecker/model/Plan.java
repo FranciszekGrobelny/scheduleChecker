@@ -1,4 +1,4 @@
-package project.inz.scheduleChecker.domain.model;
+package project.inz.scheduleChecker.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +20,8 @@ public class Plan extends ParentEntity{
     @OneToOne
     private Lesson lesson;
 
-    @Column(nullable = false)
-    private String day;
+    @OneToOne
+    private Day day;
 
-    @Column(nullable = false)
     private String lessonNumber;
 }

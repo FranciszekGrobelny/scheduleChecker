@@ -4,14 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "settings")
+@Table(name = "days")
 @Getter @Setter @ToString
-public class Setings extends ParentEntity{
+public class Day extends ParentEntity{
 
-    private int breakAfterLesson;
+    private String name;
 }

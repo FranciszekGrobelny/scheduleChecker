@@ -1,4 +1,4 @@
-package project.inz.scheduleChecker.domain.model;
+package project.inz.scheduleChecker.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +13,8 @@ import javax.persistence.Table;
 @Getter @Setter @ToString
 public class Teacher extends ParentEntity {
 
-    @Column(nullable = false)
     private String letters;
 
-    @Column(nullable = false)
     private String hours;
 
     private String isSpecialist;

@@ -1,4 +1,4 @@
-package project.inz.scheduleChecker.domain.model;
+package project.inz.scheduleChecker.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -4,14 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "settings")
+@Table(name = "topics_withs_hours_quantity")
 @Getter @Setter @ToString
-public class Setings extends ParentEntity{
+public class TopicWithHoursQuantity extends ParentEntity{
 
-    private int breakAfterLesson;
+    @OneToOne
+    private Topic topic;
+
+    private int hoursQuantity;
 }
