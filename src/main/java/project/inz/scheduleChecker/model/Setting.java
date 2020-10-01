@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "settings")
 @Getter @Setter @ToString
-public class Setings extends ParentEntity{
+public class Setting extends ParentEntity{
 
     private int breakAfterLesson;
 }
