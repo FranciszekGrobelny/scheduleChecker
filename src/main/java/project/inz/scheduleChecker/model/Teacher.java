@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Getter @Setter @ToString
 public class Teacher extends ParentEntity {
 
-    private String letters;
+    private String initialLetters;
 
     private String hours;
 
