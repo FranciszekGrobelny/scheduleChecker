@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 
 @Transactional
 @Repository
-public class TopicWithHoursQuantityDao {
+public class TopicWithHoursQuantityDAO {
 
     @PersistenceContext
     private EntityManager entityManager;

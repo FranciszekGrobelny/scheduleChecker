@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 
 @Transactional
 @Repository
-public class PlanDao {
+public class PlanDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
