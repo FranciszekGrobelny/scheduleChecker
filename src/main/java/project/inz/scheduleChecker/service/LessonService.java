@@ -10,7 +10,11 @@ import java.util.List;
 @Service
 public class LessonService {
 
-    private LessonRepository lessonRepository;
+    private final LessonRepository lessonRepository;
+
+    public LessonService(LessonRepository lessonRepository) {
+        this.lessonRepository = lessonRepository;
+    }
 
     public void save(LessonDTO lessonDTO){
         Lesson lesson = createClassFromClassDTO(lessonDTO);

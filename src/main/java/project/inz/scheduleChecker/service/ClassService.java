@@ -11,7 +11,11 @@ import java.util.List;
 @Service @Slf4j
 public class ClassService {
 
-    private ClassRepository classRepository;
+    private final ClassRepository classRepository;
+
+    public ClassService(ClassRepository classRepository) {
+        this.classRepository = classRepository;
+    }
 
     public void save(ClassDTO classDTO){
         Class clas = createClassFromClassDTO(classDTO);
