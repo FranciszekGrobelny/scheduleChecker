@@ -40,6 +40,5 @@ public class ClassService {
         clas.setTopicWithHoursQuantities(classDTO.getTopicWithHoursQuantities());
 
         return clas;
-
     }
 }
