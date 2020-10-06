@@ -13,11 +13,18 @@ import javax.persistence.Table;
 @Getter @Setter @ToString
 public class Teacher extends ParentEntity {
 
+    @Column(unique = true)
     private String initialLetters;
 
     private String hours;
 
-    private String isSpecialist;
+    private boolean isSpecialist;
 
+    public boolean getIsSpecialist() {
+        return isSpecialist;
+    }
 
+    public void setIsSpecialist(boolean specialist) {
+        isSpecialist = specialist;
+    }
 }

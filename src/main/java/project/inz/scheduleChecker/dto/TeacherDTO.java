@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Column;
+
 @Getter @Setter @ToString
 public class TeacherDTO {
 
@@ -13,6 +15,13 @@ public class TeacherDTO {
 
     private String hours;
 
-    private String isSpecialist;
+    private boolean isSpecialist;
 
+    public boolean getIsSpecialist() {
+        return isSpecialist;
+    }
+
+    public void setIsSpecialist(boolean specialist) {
+        isSpecialist = specialist;
+    }
 }
