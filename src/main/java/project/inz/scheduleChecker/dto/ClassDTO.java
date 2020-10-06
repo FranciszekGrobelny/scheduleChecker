@@ -7,15 +7,16 @@ import lombok.ToString;
 import project.inz.scheduleChecker.model.Teacher;
 import project.inz.scheduleChecker.model.TopicWithHoursQuantity;
 
+import javax.persistence.Column;
 import java.util.List;
 
 @Getter @Setter @ToString
 public class ClassDTO {
 
-    @NotNull
+    @NotNull @Column(unique = true)
     private String name;
 
-    @NotNull
+    @NotNull  @Column(unique = true)
     private String arabicName;
 
     @NotNull
