@@ -10,8 +10,11 @@
     nazwa klasa arabskimi: <form:input path="arabicName"/><br>
     główny nauczyciel: <form:input path="mainTeacher"/><br>
     liczba godzin do wyrobienia: <form:input path="lessonsHoursQuantity"/><br>
-    główny nauczyciel: <form:input path="topicWithHoursQuantities"/><br>
-    <input type="submit" value="Submit"/>
+    temat zajec: <form:input path="topicsWithHoursQuantities[0].topic"/>
+    godziny: <form:input path="topicsWithHoursQuantities[0].hoursQuantity"/>
+    <input type="submit" />
 </form:form>
+
+
 </body>
 </html>
