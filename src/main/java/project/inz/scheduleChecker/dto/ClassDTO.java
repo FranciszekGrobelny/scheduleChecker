@@ -19,12 +19,11 @@ public class ClassDTO {
     @NotNull  @Column(unique = true)
     private String arabicName;
 
-    @NotNull
+
     private Teacher mainTeacher;
 
     @NotNull
     private int lessonsHoursQuantity;
 
-    @NotNull
-    private List<TopicWithHoursQuantity> topicWithHoursQuantities;
+    private List<TopicWithHoursQuantity> topicsWithHoursQuantities;
 }
