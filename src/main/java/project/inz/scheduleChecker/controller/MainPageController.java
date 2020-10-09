@@ -1,4 +1,4 @@
-package project.inz.scheduleChecker.web.controller;
+package project.inz.scheduleChecker.controller;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -36,15 +36,15 @@ public class MainPageController {
 
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
 
-        for (Map row : rows) {
-            Teacher obj = new Teacher();
-
-            obj.setLetters((String) row.get("letters"));
-            obj.setHours((String) row.get("hours"));
-            obj.setIsSpecialist((String) row.get("is_specialist"));
-
-            teachers.add(obj);
-        }
+//        for (Map row : rows) {
+//            Teacher obj = new Teacher();
+//
+//            obj.setLetters((String) row.get("letters"));
+//            obj.setHours((String) row.get("hours"));
+//            obj.setIsSpecialist((String) row.get("is_specialist"));
+//
+//            teachers.add(obj);
+//        }
 
         return teachers;
     }
