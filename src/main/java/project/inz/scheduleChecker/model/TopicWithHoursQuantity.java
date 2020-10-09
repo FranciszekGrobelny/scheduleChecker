@@ -17,4 +17,11 @@ public class TopicWithHoursQuantity extends ParentEntity{
     private Topic topic;
 
     private int hoursQuantity;
+
+    public TopicWithHoursQuantity() {
+    }
+    public TopicWithHoursQuantity(Topic topic, int hoursQuantity){
+        this.topic = topic;
+        this.hoursQuantity = hoursQuantity;
+    }
 }
