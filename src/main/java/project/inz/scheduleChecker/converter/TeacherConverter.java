@@ -1,17 +1,19 @@
 package project.inz.scheduleChecker.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
 import project.inz.scheduleChecker.model.Teacher;
 import project.inz.scheduleChecker.repository.TeacherRepository;
-import project.inz.scheduleChecker.service.TeacherService;
 
-public class StringToTeacherConverter implements Converter<Teacher,String>{
+public class TeacherConverter implements Converter<String,Teacher> {
 
     @Autowired
-    TeacherService teacherService;
+    private TeacherRepository teacherRepository;
 
     @Override
     public Teacher convert(String source) {
-        return teacherService.getTeacherByName(source);
+
+        return teacherRepository.getTeacherByName(source);
     }
+
 }
