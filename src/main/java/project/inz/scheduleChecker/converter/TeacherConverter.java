@@ -7,13 +7,20 @@ import project.inz.scheduleChecker.repository.TeacherRepository;
 
 public class TeacherConverter implements Converter<String,Teacher> {
 
-    @Autowired
+
     private TeacherRepository teacherRepository;
 
     @Override
     public Teacher convert(String source) {
-
-        return teacherRepository.getTeacherByName(source);
+        Teacher teacher = teacherRepository.getTeacherById(Long.parseLong(source));
+        if(null==teacher){
+            throw new IllegalStateException("Nie ma takiego nauczyciela!");
+        }
+        return teacher;
     }
 
+    @Autowired
+    public void setTeacherRepository(TeacherRepository teacherRepository) {
+        this.teacherRepository = teacherRepository;
+    }
 }
