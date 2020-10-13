@@ -13,5 +13,10 @@ import java.time.LocalTime;
 @Getter @Setter @ToString
 public class Setting extends ParentEntity{
 
-    private LocalTime breakAfterLesson;
+    private int longBreakAfterLesson;
+    private LocalTime breakAfter45minLesson;
+    private LocalTime breakAfter60minLesson;
+    private LocalTime LongBreakFor45minLesson;
+    private LocalTime LongBreakFor60minLesson;
+    private LocalTime firstLessonStartTime;
 }
