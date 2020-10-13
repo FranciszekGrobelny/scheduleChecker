@@ -36,7 +36,12 @@ public class SettingService {
 
     private Setting createClassFromClassDTO(SettingDTO settingDTO) {
         Setting setting = new Setting();
-        setting.setBreakAfterLesson(settingDTO.getBreakAfterLesson());
+        setting.setLongBreakAfterLesson(settingDTO.getLongBreakAfterLesson());
+        setting.setBreakAfter45minLesson(settingDTO.getBreakAfter45minLesson());
+        setting.setBreakAfter60minLesson(settingDTO.getBreakAfter60minLesson());
+        setting.setFirstLessonStartTime(settingDTO.getFirstLessonStartTime());
+        setting.setLongBreakFor45minLesson(settingDTO.getLongBreakFor45minLesson());
+        setting.setLongBreakFor60minLesson(settingDTO.getLongBreakFor60minLesson());
 
         return setting;
     }
