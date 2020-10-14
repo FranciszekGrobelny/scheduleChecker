@@ -12,14 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.inz.scheduleChecker.dto.SettingDTO;
 import project.inz.scheduleChecker.service.SettingService;
-
-import javax.validation.Valid;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.TimeZone;
 
 @Controller @Slf4j
 public class AddSettingsController {
@@ -31,27 +24,37 @@ public class AddSettingsController {
     }
 
     @GetMapping("/addSettings")
-    public String showSettingsView(){
+    public String showSettingsView(Model model){
+        log.warn(settingService.findAll().toString());
+        if(settingService.findAll().size()>0){
+            model.addAttribute("settings",settingService.findFirstToString());
+        }
+
         return "/add/settings.jsp";
     }
 
     @PostMapping("/addSettings")
-    public String addSetting(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime  firstLessonStartTime,
+    public String addSetting(@RequestParam int longBreakAfterLesson,
                              @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime breakAfter45minLesson,
                              @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime breakAfter60minLesson,
-                             @RequestParam int longBreakAfterLesson,
                              @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime longBreakFor45minLesson,
-                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime longBreakFor60minLesson){
+                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime longBreakFor60minLesson,
+                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime  firstLessonStartTime){
 
        SettingDTO settingDTO = new SettingDTO(
                longBreakAfterLesson,
-               breakAfter45minLesson.plusHours(1),
-               breakAfter60minLesson.plusHours(1),
-               longBreakFor45minLesson.plusHours(1),
-               longBreakFor60minLesson.plusHours(1),
-               firstLessonStartTime.plusHours(1));
+               breakAfter45minLesson,
+               breakAfter60minLesson,
+               longBreakFor45minLesson,
+               longBreakFor60minLesson,
+               firstLessonStartTime);
         try{
-            settingService.save(settingDTO);
+            if(settingService.findAll().size()>0){
+                settingService.update(settingDTO);
+            }else{
+                settingService.save(settingDTO);
+            }
+            log.warn(settingService.findAll().toString());
             return "/index.jsp";
         }catch (DataIntegrityViolationException e){
             System.out.println("Double teacher initials "+e.getMessage());
