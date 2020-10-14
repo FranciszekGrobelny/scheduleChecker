@@ -5,12 +5,13 @@ import project.inz.scheduleChecker.dto.SettingDTO;
 import project.inz.scheduleChecker.model.Setting;
 import project.inz.scheduleChecker.repository.SettingRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class SettingService {
 
-    private SettingRepository settingRepository;
+    private final SettingRepository settingRepository;
 
     public SettingService(SettingRepository settingRepository) {
         this.settingRepository = settingRepository;
@@ -25,7 +26,21 @@ public class SettingService {
         return settingRepository.findAll();
     }
 
+    public List<String> findFirstToString(){
+        List<String> list = new ArrayList<>();
+        Setting setting = settingRepository.findFirst();
+        list.add(Integer.toString(setting.getLongBreakAfterLesson()));
+        list.add(setting.getFirstLessonStartTime().toString());
+        list.add(setting.getBreakAfter45minLesson().toString());
+        list.add(setting.getBreakAfter60minLesson().toString());
+        list.add(setting.getLongBreakFor45minLesson().toString());
+        list.add(setting.getLongBreakFor60minLesson().toString());
+
+        return list;
+    }
+
     public void update(SettingDTO settingDTO){
+        this.deleteAll();
         Setting setting  = createClassFromClassDTO(settingDTO);
         settingRepository.save(setting);
     }
@@ -33,6 +48,8 @@ public class SettingService {
     public void delete(Long id){
         settingRepository.deleteById(id);
     }
+
+    public void deleteAll(){settingRepository.deleteAll();}
 
     private Setting createClassFromClassDTO(SettingDTO settingDTO) {
         Setting setting = new Setting();
