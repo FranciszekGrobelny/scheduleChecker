@@ -41,7 +41,7 @@ public class ClassService {
         clas.setLessonsHoursQuantity(classDTO.getLessonsHoursQuantity());
         clas.setMainTeacher(classDTO.getMainTeacher());
         clas.setName(classDTO.getName());
-        clas.setTopicsWithHoursQuantities(classDTO.getTopicsWithHoursQuantities());
+//        clas.setTopicsWithHoursQuantities(classDTO.getTopicsWithHoursQuantities());
 
         return clas;
     }

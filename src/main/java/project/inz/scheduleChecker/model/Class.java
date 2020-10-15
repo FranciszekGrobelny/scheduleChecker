@@ -22,7 +22,7 @@ public class Class extends ParentEntity {
 
     private int lessonsHoursQuantity;
 
-    @OneToMany
-    private List<TopicWithHoursQuantity> topicsWithHoursQuantities;
+//    @OneToMany
+//    private List<TopicWithHoursQuantity> topicsWithHoursQuantities;
 
 }

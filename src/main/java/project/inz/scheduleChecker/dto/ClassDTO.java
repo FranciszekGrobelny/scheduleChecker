@@ -24,6 +24,6 @@ public class ClassDTO {
 
     @NotNull
     private int lessonsHoursQuantity;
-
-    private List<TopicWithHoursQuantity> topicsWithHoursQuantities;
+//
+//    private List<TopicWithHoursQuantity> topicsWithHoursQuantities;
 }
