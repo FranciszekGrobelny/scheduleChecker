@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,7 +15,11 @@
 <%--    godziny: <form:input path="topicsWithHoursQuantities[0].hoursQuantity"/>--%>
     <input type="submit" />
 </form:form>
-
+<c:forEach var="class" items="${allClassesList}">
+    <table>
+        <tr>${class.name}</tr>
+    </table>
+</c:forEach>
 
 </body>
 </html>

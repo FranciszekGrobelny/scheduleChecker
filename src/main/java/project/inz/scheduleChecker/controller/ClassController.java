@@ -37,6 +37,7 @@ public class ClassController {
     public String addClass(Model model){
         model.addAttribute(new ClassDTO());
         model.addAttribute(new TopicWithHoursQuantityDTO());
+        model.addAttribute("allClassesList",classService.findAll());
         return "/add/class.jsp";
     }
 
@@ -48,7 +49,7 @@ public class ClassController {
         }
         try{
             classService.save(classDTO);
-            return "/add/class.jsp";
+            return "redirect:/addClass";
         }catch (DataIntegrityViolationException e){
             System.out.println("Double teacher initials "+e.getMessage());
         }
