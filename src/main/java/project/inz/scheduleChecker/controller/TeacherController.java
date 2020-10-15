@@ -21,6 +21,7 @@ public class TeacherController {
     @GetMapping("/addTeacher")
     public String addTeacher(Model model){
         model.addAttribute(new TeacherDTO());
+        model.addAttribute("allTeachersList",teacherService.findAll());
         return "/add/teachers.jsp";
     }
 
@@ -28,7 +29,7 @@ public class TeacherController {
     public String addTeacher(@ModelAttribute TeacherDTO teacherDTO){
         try{
             teacherService.save(teacherDTO);
-            return "/add/teachers.jsp";
+            return "redirect:/addTeacher";
         }catch (DataIntegrityViolationException e){
             System.out.println("Double teacher initials "+e.getMessage());
         }
