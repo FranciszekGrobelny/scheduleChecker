@@ -1,7 +1,6 @@
 package project.inz.scheduleChecker.service;
 
 import org.springframework.stereotype.Service;
-import project.inz.scheduleChecker.dto.TeacherDTO;
 import project.inz.scheduleChecker.model.Teacher;
 import project.inz.scheduleChecker.repository.TeacherRepository;
 
@@ -16,8 +15,7 @@ public class TeacherService {
         this.teacherRepository = teacherRepository;
     }
 
-    public void save(TeacherDTO teacherDTO){
-        Teacher teacher = createClassFromClassDTO(teacherDTO);
+    public void save(Teacher teacher){
         teacherRepository.save(teacher);
     }
 
@@ -25,8 +23,7 @@ public class TeacherService {
         return teacherRepository.findAll();
     }
 
-    public void update(TeacherDTO teacherDTO){
-        Teacher teacher = createClassFromClassDTO(teacherDTO);
+    public void update(Teacher teacher){
         teacherRepository.save(teacher);
     }
 
@@ -34,12 +31,4 @@ public class TeacherService {
         teacherRepository.deleteById(id);
     }
 
-    private Teacher createClassFromClassDTO(TeacherDTO teacherDTO) {
-        Teacher teacher = new Teacher();
-        teacher.setInitialLetters(teacherDTO.getInitialLetters());
-        teacher.setHours(teacherDTO.getHours());
-        teacher.setIsSpecialist(teacherDTO.getIsSpecialist());
-
-        return teacher;
-    }
 }

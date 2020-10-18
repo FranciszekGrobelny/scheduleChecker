@@ -1,7 +1,6 @@
 package project.inz.scheduleChecker.service;
 
 import org.springframework.stereotype.Service;
-import project.inz.scheduleChecker.dto.PlanDTO;
 import project.inz.scheduleChecker.model.Plan;
 import project.inz.scheduleChecker.repository.PlanRepository;
 
@@ -16,8 +15,7 @@ public class PlanService {
         this.planRepository = planRepository;
     }
 
-    public void save(PlanDTO planDTO){
-        Plan plan = createClassFromClassDTO(planDTO);
+    public void save(Plan plan){
         planRepository.save(plan);
     }
 
@@ -25,8 +23,7 @@ public class PlanService {
         return planRepository.findAll();
     }
 
-    public void update(PlanDTO planDTO){
-        Plan plan = createClassFromClassDTO(planDTO);
+    public void update(Plan plan){
         planRepository.save(plan);
     }
 
@@ -34,13 +31,5 @@ public class PlanService {
         planRepository.deleteById(id);
     }
 
-    private Plan createClassFromClassDTO(PlanDTO planDTO) {
-        Plan plan = new Plan();
-        plan.setClas(planDTO.getClas());
-        plan.setDay(planDTO.getDay());
-        plan.setLesson(planDTO.getLesson());
-        plan.setLessonNumber(planDTO.getLessonNumber());
 
-        return plan;
-    }
 }

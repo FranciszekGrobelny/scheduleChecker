@@ -13,14 +13,13 @@ import javax.persistence.Table;
 @Getter @Setter @ToString
 public class TopicWithHoursQuantity extends ParentEntity{
 
-    @OneToOne
-    private Topic topic;
+    private String  topic;
 
     private int hoursQuantity;
 
     public TopicWithHoursQuantity() {
     }
-    public TopicWithHoursQuantity(Topic topic, int hoursQuantity){
+    public TopicWithHoursQuantity(String topic, int hoursQuantity){
         this.topic = topic;
         this.hoursQuantity = hoursQuantity;
     }

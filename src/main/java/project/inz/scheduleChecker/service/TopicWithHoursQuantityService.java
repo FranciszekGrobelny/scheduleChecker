@@ -1,7 +1,6 @@
 package project.inz.scheduleChecker.service;
 
 import org.springframework.stereotype.Service;
-import project.inz.scheduleChecker.dto.TopicWithHoursQuantityDTO;
 import project.inz.scheduleChecker.model.TopicWithHoursQuantity;
 import project.inz.scheduleChecker.repository.TopicWithHoursQuantityRepository;
 
@@ -16,8 +15,7 @@ public class TopicWithHoursQuantityService {
         this.topicWithHoursQuantityRepository = topicWithHoursQuantityRepository;
     }
 
-    public void save(TopicWithHoursQuantityDTO topicWithHoursQuantityDTO){
-        TopicWithHoursQuantity topicWithHoursQuantity = createClassFromClassDTO(topicWithHoursQuantityDTO);
+    public void save(TopicWithHoursQuantity topicWithHoursQuantity){
         topicWithHoursQuantityRepository.save(topicWithHoursQuantity);
     }
 
@@ -25,8 +23,7 @@ public class TopicWithHoursQuantityService {
         return topicWithHoursQuantityRepository.findAll();
     }
 
-    public void update(TopicWithHoursQuantityDTO topicWithHoursQuantityDTO){
-        TopicWithHoursQuantity topicWithHoursQuantity = createClassFromClassDTO(topicWithHoursQuantityDTO);
+    public void update(TopicWithHoursQuantity topicWithHoursQuantity){
         topicWithHoursQuantityRepository.save(topicWithHoursQuantity);
     }
 
@@ -34,11 +31,5 @@ public class TopicWithHoursQuantityService {
         topicWithHoursQuantityRepository.deleteById(id);
     }
 
-    private TopicWithHoursQuantity createClassFromClassDTO(TopicWithHoursQuantityDTO topicWithHoursQuantityDTO ) {
-        TopicWithHoursQuantity topicWithHoursQuantity = new TopicWithHoursQuantity();
-        topicWithHoursQuantity.setHoursQuantity(topicWithHoursQuantityDTO.getHoursQuantity());
-        topicWithHoursQuantity.setTopic(topicWithHoursQuantityDTO.getTopic());
 
-        return topicWithHoursQuantity;
-    }
 }

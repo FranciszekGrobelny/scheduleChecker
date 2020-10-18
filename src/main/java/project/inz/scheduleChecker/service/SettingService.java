@@ -1,7 +1,6 @@
 package project.inz.scheduleChecker.service;
 
 import org.springframework.stereotype.Service;
-import project.inz.scheduleChecker.dto.SettingDTO;
 import project.inz.scheduleChecker.model.Setting;
 import project.inz.scheduleChecker.repository.SettingRepository;
 
@@ -17,16 +16,16 @@ public class SettingService {
         this.settingRepository = settingRepository;
     }
 
-    public void save(SettingDTO settingDTO){
-        Setting setting  = createClassFromClassDTO(settingDTO);
+    public void save(Setting setting) {
+
         settingRepository.save(setting);
     }
 
-    public List<Setting> findAll(){
+    public List<Setting> findAll() {
         return settingRepository.findAll();
     }
 
-    public List<String> findFirstToString(){
+    public List<String> findFirstToString() {
         List<String> list = new ArrayList<>();
         Setting setting = settingRepository.findFirst();
         list.add(Integer.toString(setting.getLongBreakAfterLesson()));
@@ -39,27 +38,17 @@ public class SettingService {
         return list;
     }
 
-    public void update(SettingDTO settingDTO){
+    public void update(Setting setting) {
         this.deleteAll();
-        Setting setting  = createClassFromClassDTO(settingDTO);
         settingRepository.save(setting);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         settingRepository.deleteById(id);
     }
 
-    public void deleteAll(){settingRepository.deleteAll();}
-
-    private Setting createClassFromClassDTO(SettingDTO settingDTO) {
-        Setting setting = new Setting();
-        setting.setLongBreakAfterLesson(settingDTO.getLongBreakAfterLesson());
-        setting.setBreakAfter45minLesson(settingDTO.getBreakAfter45minLesson());
-        setting.setBreakAfter60minLesson(settingDTO.getBreakAfter60minLesson());
-        setting.setFirstLessonStartTime(settingDTO.getFirstLessonStartTime());
-        setting.setLongBreakFor45minLesson(settingDTO.getLongBreakFor45minLesson());
-        setting.setLongBreakFor60minLesson(settingDTO.getLongBreakFor60minLesson());
-
-        return setting;
+    public void deleteAll() {
+        settingRepository.deleteAll();
     }
+
 }

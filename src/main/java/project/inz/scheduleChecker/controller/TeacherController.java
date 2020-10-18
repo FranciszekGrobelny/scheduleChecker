@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import project.inz.scheduleChecker.dto.TeacherDTO;
+import project.inz.scheduleChecker.model.Teacher;
 import project.inz.scheduleChecker.service.TeacherService;
 
 @Controller
@@ -20,15 +20,15 @@ public class TeacherController {
 
     @GetMapping("/addTeacher")
     public String addTeacher(Model model){
-        model.addAttribute(new TeacherDTO());
+        model.addAttribute(new Teacher());
         model.addAttribute("allTeachersList",teacherService.findAll());
         return "/add/teachers.jsp";
     }
 
     @PostMapping("/addTeacher")
-    public String addTeacher(@ModelAttribute TeacherDTO teacherDTO){
+    public String addTeacher(@ModelAttribute Teacher teacher){
         try{
-            teacherService.save(teacherDTO);
+            teacherService.save(teacher);
             return "redirect:/addTeacher";
         }catch (DataIntegrityViolationException e){
             System.out.println("Double teacher initials "+e.getMessage());

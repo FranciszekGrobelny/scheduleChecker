@@ -15,9 +15,9 @@ import java.time.LocalTime;
 @Getter @Setter @ToString
 public class Lesson extends ParentEntity {
 
-    private String type;
+    private boolean revalidationLesson;
     
-    private String connected;
+    private boolean connected;
 
     private LocalTime startTime;
 
@@ -26,14 +26,12 @@ public class Lesson extends ParentEntity {
     @OneToOne
     private Teacher teacher;
 
-    @OneToOne
-    private Topic topic;
+    private String topic;
 
     private int room;
 
     @OneToOne
     private Teacher teacher2;
 
-    @OneToOne
-    private Topic topic2;
+    private String topic2;
 }

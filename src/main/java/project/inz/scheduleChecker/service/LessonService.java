@@ -1,7 +1,6 @@
 package project.inz.scheduleChecker.service;
 
 import org.springframework.stereotype.Service;
-import project.inz.scheduleChecker.dto.LessonDTO;
 import project.inz.scheduleChecker.model.Lesson;
 import project.inz.scheduleChecker.repository.LessonRepository;
 
@@ -16,8 +15,7 @@ public class LessonService {
         this.lessonRepository = lessonRepository;
     }
 
-    public void save(LessonDTO lessonDTO){
-        Lesson lesson = createClassFromClassDTO(lessonDTO);
+    public void save(Lesson lesson){
         lessonRepository.save(lesson);
     }
 
@@ -25,8 +23,7 @@ public class LessonService {
         return lessonRepository.findAll();
     }
 
-    public void update(LessonDTO lessonDTO){
-        Lesson lesson = createClassFromClassDTO(lessonDTO);
+    public void update(Lesson lesson){
         lessonRepository.save(lesson);
     }
 
@@ -34,18 +31,5 @@ public class LessonService {
         lessonRepository.deleteById(id);
     }
 
-    private Lesson createClassFromClassDTO(LessonDTO lessonDTO) {
-        Lesson lesson = new Lesson();
-        lesson.setConnected(lessonDTO.getConnected());
-        lesson.setType(lessonDTO.getType());
-        lesson.setStartTime(lessonDTO.getStartTime());
-        lesson.setEndTime(lessonDTO.getEndTime());
-        lesson.setRoom(lessonDTO.getRoom());
-        lesson.setTeacher(lessonDTO.getTeacher());
-        lesson.setTopic(lessonDTO.getTopic());
-        lesson.setTeacher2(lessonDTO.getTeacher2());
-        lesson.setTopic2(lessonDTO.getTopic2());
 
-        return lesson;
-    }
 }
