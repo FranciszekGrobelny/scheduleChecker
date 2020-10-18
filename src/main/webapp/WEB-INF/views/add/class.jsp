@@ -6,15 +6,19 @@
     <title>Dodaj klasę</title>
 </head>
 <body>
-<form:form method="POST" modelAttribute="classDTO">
+<form:form method="POST" modelAttribute="class">
     nazwa klasy rzymskimi: <form:input path="name"/><br>
     nazwa klasa arabskimi: <form:input path="arabicName"/><br>
     główny nauczyciel: <form:select itemLabel="initialLetters" itemValue="id" items="${teachers}" path="mainTeacher.id"/><br>
     liczba godzin do wyrobienia: <form:input path="lessonsHoursQuantity"/><br>
-<%--    temat zajec: <form:input path="topicsWithHoursQuantities[0].topic"/>--%>
-<%--    godziny: <form:input path="topicsWithHoursQuantities[0].hoursQuantity"/>--%>
     <input type="submit" />
 </form:form>
+
+<form:form method="POST" modelAttribute="topicWithHoursQuantity" action="/addTopicWithHoursQuantity">
+
+    <input type="submit" />
+</form:form>
+
 <c:forEach var="class" items="${allClassesList}">
     <table>
         <tr>${class.name}</tr>
