@@ -12,7 +12,7 @@ public class TeacherConverter implements Converter<String,Teacher> {
 
     @Override
     public Teacher convert(String source) {
-        Teacher teacher = teacherRepository.getTeacherById(Long.parseLong(source));
+        Teacher teacher = teacherRepository.findTeacherById(Long.parseLong(source));
         if(null==teacher){
             throw new IllegalStateException("Nie ma takiego nauczyciela!");
         }
