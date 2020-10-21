@@ -23,6 +23,10 @@ public class ClassService {
         return classRepository.findAll();
     }
 
+    public Class findClassByName(String name){
+        return classRepository.findClassByName(name);
+    }
+
     public void update(Class clas){
         classRepository.save(clas);
     }
