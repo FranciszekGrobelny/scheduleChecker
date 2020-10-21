@@ -7,5 +7,5 @@ import project.inz.scheduleChecker.model.Teacher;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
-    Teacher getTeacherById(Long Id);
+    Teacher findTeacherById(Long Id);
 }

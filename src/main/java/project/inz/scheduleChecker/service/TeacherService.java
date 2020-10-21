@@ -30,5 +30,8 @@ public class TeacherService {
     public void delete(Long id){
         teacherRepository.deleteById(id);
     }
+     public Teacher findTeacherById(Long id){
+        return teacherRepository.findTeacherById(id);
+     }
 
 }
