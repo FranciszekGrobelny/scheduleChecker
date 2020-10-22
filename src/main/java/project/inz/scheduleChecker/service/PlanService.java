@@ -5,6 +5,7 @@ import project.inz.scheduleChecker.model.Plan;
 import project.inz.scheduleChecker.repository.PlanRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlanService {
@@ -21,6 +22,11 @@ public class PlanService {
 
     public List<Plan> findAll(){
         return planRepository.findAll();
+    }
+
+    public Plan findPlanById(Long id){
+
+        return planRepository.findPlanById(id);
     }
 
     public void update(Plan plan){
