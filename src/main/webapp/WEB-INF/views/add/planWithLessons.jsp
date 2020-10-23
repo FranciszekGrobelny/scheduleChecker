@@ -6,18 +6,32 @@
 </head>
 <body>
 <a href="/addLesson?klasa=IV">klasa IV</a>
-<form method="POST" action="/addPlan">
-</form>
-<form method="post" action="/addLesson">
-    Rewalidacja?<input type="checkbox" name="revalidationLesson" ><br/>
-    Zajęcia Łączone?<input type="checkbox" name="connected" ><br/>
-    Numer sali <input type="number" name="room" ><br/>
-    <select name="teacherId" >
-        <c:forEach items="${teachers}" var="teacher">
-            <option value="${teacher.id}">${teacher.initialLetters}</option>
-        </c:forEach>
-    </select><br>
-    <input type="submit" placeholder="Dodaj lekcję">
-</form>
+<table>
+    <tr>
+        <th>Poniedziałek</th>
+        <th>Wtorek</th>
+        <th>Środa</th>
+        <th>Czwartek</th>
+        <th>Piątek</th>
+    </tr>
+    <tr>
+    <c:forEach var="i" begin="1" end="5">
+        <td>
+            <form method="post" action="/addLesson">
+                Rewalidacja?<input type="checkbox" name="revalidationLesson" ><br/>
+                Zajęcia Łączone?<input type="checkbox" name="connected" ><br/>
+                Numer sali <input type="number" name="room" ><br/>
+                <select name="teacherId" >
+                    <c:forEach items="${teachers}" var="teacher">
+                        <option value="${teacher.id}">${teacher.initialLetters}</option>
+                    </c:forEach>
+                </select><br>
+                <input type="hidden" name="dayId" value="${i}">
+                <input type="submit" placeholder="Dodaj lekcję">
+            </form>
+        </td>
+    </c:forEach>
+    </tr>
+</table>
 </body>
 </html>
