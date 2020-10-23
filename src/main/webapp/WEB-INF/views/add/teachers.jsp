@@ -7,7 +7,7 @@
     <title>Dodaj nauczyciela</title>
 </head>
 <body>
-<form:form method="POST" modelAttribute="teacherDTO">
+<form:form method="POST" modelAttribute="teacher">
     Inicjały nauczyciela: <form:input path="initialLetters"/><br>
     Godziny do wypracowania: <form:input path="hours"/><br>
     Jest on/a specjalistą: <form:checkbox path="isSpecialist"/><br>
