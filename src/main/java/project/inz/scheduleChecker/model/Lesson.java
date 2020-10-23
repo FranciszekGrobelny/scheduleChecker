@@ -36,11 +36,14 @@ public class Lesson extends ParentEntity {
     @ManyToOne
     private Plan plan;
 
+    @OneToOne
+    private Day day;
+
     public Lesson() {
     }
 
     public Lesson(boolean revalidationLesson,boolean connected,LocalTime startTime,LocalTime endTime,
-                  Teacher teacher,String topic,int room,Plan plan) {
+                  Teacher teacher,String topic,int room,Plan plan, Day day) {
         this.revalidationLesson = revalidationLesson;
         this.connected = connected;
         this.startTime = startTime;
@@ -49,6 +52,7 @@ public class Lesson extends ParentEntity {
         this.topic = topic;
         this.room = room;
         this.plan = plan;
+        this.day = day;
     }
 
     public Lesson(boolean revalidationLesson,boolean connected,LocalTime startTime,LocalTime endTime,
