@@ -17,6 +17,8 @@ public class Lesson extends ParentEntity {
     
     private boolean connected;
 
+    private int lessonNumber;
+
     private LocalTime startTime;
 
     private LocalTime endTime;
@@ -42,10 +44,11 @@ public class Lesson extends ParentEntity {
     public Lesson() {
     }
 
-    public Lesson(boolean revalidationLesson,boolean connected,LocalTime startTime,LocalTime endTime,
+    public Lesson(boolean revalidationLesson,boolean connected,int lessonNumber,LocalTime startTime,LocalTime endTime,
                   Teacher teacher,String topic,int room,Plan plan, Day day) {
         this.revalidationLesson = revalidationLesson;
         this.connected = connected;
+        this.lessonNumber = lessonNumber;
         this.startTime = startTime;
         this.endTime = endTime;
         this.teacher = teacher;
@@ -55,10 +58,11 @@ public class Lesson extends ParentEntity {
         this.day = day;
     }
 
-    public Lesson(boolean revalidationLesson,boolean connected,LocalTime startTime,LocalTime endTime,
+    public Lesson(boolean revalidationLesson,boolean connected,int lessonNumber,LocalTime startTime,LocalTime endTime,
                   Teacher teacher,String topic,int room,Teacher teacher2,String topic2,Plan plan) {
         this.revalidationLesson = revalidationLesson;
         this.connected = connected;
+        this.lessonNumber = lessonNumber;
         this.startTime = startTime;
         this.endTime = endTime;
         this.teacher = teacher;
@@ -69,7 +73,8 @@ public class Lesson extends ParentEntity {
         this.plan = plan;
     }
 
-    public Lesson(boolean revalidationLesson, boolean connected, LocalTime start, LocalTime stop, Teacher teacherById, String religia, int room, Optional<Plan> plan) {
-        super();
+    public boolean isRevalidationLesson() {
+        return revalidationLesson;
     }
+
 }
