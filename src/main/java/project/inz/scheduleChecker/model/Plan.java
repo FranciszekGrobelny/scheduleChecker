@@ -17,6 +17,4 @@ public class Plan extends ParentEntity{
     @OneToOne
     private Class clas;
 
-
-    private String lessonNumber;
 }
