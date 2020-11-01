@@ -29,6 +29,10 @@ public class PlanService {
         return planRepository.findPlanById(id);
     }
 
+    public Plan findPlanByClass(String className){
+        return planRepository.findPlanByClass(className);
+    }
+
     public void update(Plan plan){
         planRepository.save(plan);
     }
