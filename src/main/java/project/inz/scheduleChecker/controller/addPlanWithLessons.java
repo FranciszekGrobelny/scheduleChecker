@@ -6,13 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import project.inz.scheduleChecker.model.Day;
-import project.inz.scheduleChecker.model.Lesson;
-import project.inz.scheduleChecker.model.Plan;
-import project.inz.scheduleChecker.model.Teacher;
+import project.inz.scheduleChecker.model.*;
 import project.inz.scheduleChecker.service.*;
 
 import java.time.LocalTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,12 +22,14 @@ public class addPlanWithLessons {
     private final LessonService lessonService;
     private final TeacherService teacherService;
     private final DayService dayService;
+    private final SettingService settingService;
 
-    public addPlanWithLessons(PlanService planService, LessonService lessonService, TeacherService teacherService, DayService dayService) {
+    public addPlanWithLessons(PlanService planService, LessonService lessonService, TeacherService teacherService, DayService dayService, SettingService settingService) {
         this.planService = planService;
         this.lessonService = lessonService;
         this.teacherService = teacherService;
         this.dayService = dayService;
+        this.settingService = settingService;
     }
 
     @ModelAttribute("teachers")
@@ -48,14 +48,13 @@ public class addPlanWithLessons {
                             @RequestParam(required = false) boolean revalidationLesson,
                             @RequestParam(required = false) boolean connected,
                             @RequestParam int room,
-                            @RequestParam Long dayId) {
+                            @RequestParam Long dayId,
+                            @RequestParam int lessonNumber) {
         Day day =dayService.findByIdNoOptional(dayId);
-        log.warn("{}, {}",dayId.toString(),day.toString());
-        LocalTime start = LocalTime.now();
-        LocalTime stop = LocalTime.now();
+        LocalTime start = getStartTime(lessonNumber, day);
+        LocalTime stop = getEndTime(start,revalidationLesson);
         Plan plan = planService.findPlanById((long) 1);
-        log.warn("{}, {}, {}, {}, {}, {}, {}",revalidationLesson,connected,start,stop,teacherService.findTeacherById(teacherId).toString(),room,plan.toString());
-        Lesson lesson = new Lesson(revalidationLesson, connected, start, stop, teacherService.findTeacherById(teacherId), "Religia", room, plan, day);
+        Lesson lesson = new Lesson(revalidationLesson, connected, lessonNumber,start, stop, teacherService.findTeacherById(teacherId), "Religia", room, plan, day);
         lessonService.save(lesson);
 
         return "redirect:/addLesson";
@@ -65,5 +64,43 @@ public class addPlanWithLessons {
     public String addPlan() {
 
         return "redirect:/addLesson";
+    }
+
+    private LocalTime getStartTime(int lessonNumber, Day day){
+        LocalTime start;
+        Setting settings = settingService.findAll().get(0);
+        if(lessonNumber==1){
+            start = settings.getFirstLessonStartTime();
+        }else{
+            List<Lesson> lessons = lessonService.findAllLessonsByDayWhereLessonNumberIsLoverThan(day, lessonNumber);
+            Optional<Lesson> lessonBefore = lessons.stream()
+                    .sorted(Comparator.comparing(Lesson::getLessonNumber).reversed())
+                    .findFirst();
+            log.warn("{}",lessonBefore.toString());
+            if(lessonBefore.get().isRevalidationLesson()){
+                if(lessonBefore.get().getLessonNumber()==settings.getLongBreakAfterLesson()){
+                    start = lessonBefore.get().getEndTime().plusMinutes(settings.getLongBreakFor60minLesson().getMinute());
+                }else{
+                    start = lessonBefore.get().getEndTime().plusMinutes(settings.getBreakAfter60minLesson().getMinute());
+                }
+            }else{
+                if(lessonBefore.get().getLessonNumber()==settings.getLongBreakAfterLesson()){
+                    start = lessonBefore.get().getEndTime().plusMinutes(settings.getLongBreakFor45minLesson().getMinute());
+                }else{
+                    start = lessonBefore.get().getEndTime().plusMinutes(settings.getBreakAfter45minLesson().getMinute());
+                }
+            }
+        }
+        return start;
+    }
+
+    private LocalTime getEndTime(LocalTime start, boolean revalidationLesson){
+        LocalTime stop;
+        if(revalidationLesson){
+            stop = start.plusMinutes(60);
+        }else{
+            stop = start.plusMinutes(45);
+        }
+        return stop;
     }
 }
