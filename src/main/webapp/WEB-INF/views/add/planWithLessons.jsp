@@ -29,6 +29,11 @@
             <form method="post" action="/addLesson">
                 Rewalidacja?<input type="checkbox" name="revalidationLesson" ><br/>
                 Zajęcia Łączone?<input type="checkbox" name="connected" ><br/>
+                <select name="topic" >
+                    <c:forEach items="${topics}" var="topic">
+                        <option value="${topic}">${topic}</option>
+                    </c:forEach>
+                </select><br>
                 Numer sali <input type="number" name="room" ><br/>
                 <select name="teacherId" >
                     <c:forEach items="${teachers}" var="teacher">

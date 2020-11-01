@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.inz.scheduleChecker.model.*;
+import project.inz.scheduleChecker.model.Class;
 import project.inz.scheduleChecker.service.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -27,13 +29,15 @@ public class addPlanWithLessons {
     private final TeacherService teacherService;
     private final DayService dayService;
     private final SettingService settingService;
+    private final ClassService classService;
 
-    public addPlanWithLessons(PlanService planService, LessonService lessonService, TeacherService teacherService, DayService dayService, SettingService settingService) {
+    public addPlanWithLessons(PlanService planService, LessonService lessonService, TeacherService teacherService, DayService dayService, SettingService settingService, ClassService classService) {
         this.planService = planService;
         this.lessonService = lessonService;
         this.teacherService = teacherService;
         this.dayService = dayService;
         this.settingService = settingService;
+        this.classService = classService;
     }
 
     @ModelAttribute("teachers")
@@ -43,9 +47,16 @@ public class addPlanWithLessons {
 
     @GetMapping("/addLesson")
     public String addLesson(@RequestParam String klasa,
-                            HttpServletResponse response) {
+                            HttpServletResponse response,
+                            Model model) {
         Cookie className = new Cookie("className", klasa);
         response.addCookie(className);
+        Class class_ = classService.findClassByName(className.getValue());
+        List<String> topics = new ArrayList<>();
+        for (TopicWithHoursQuantity t: class_.getTopicsWithHoursQuantities()) {
+            topics.add(t.getTopic());
+        }
+        model.addAttribute("topics",topics);
         log.warn("dodało się ciasteczko {}",className.getValue());
         return "/add/planWithLessons.jsp";
     }
@@ -57,6 +68,7 @@ public class addPlanWithLessons {
                             @RequestParam int room,
                             @RequestParam Long dayId,
                             @RequestParam int lessonNumber,
+                            @RequestParam String topic,
                             HttpServletRequest request
                             ) {
         String className = null;
@@ -76,7 +88,7 @@ public class addPlanWithLessons {
                 start,
                 stop,
                 teacherService.findTeacherById(teacherId),
-                "Religia",
+                topic,
                 room,
                 plan,
                 day);
