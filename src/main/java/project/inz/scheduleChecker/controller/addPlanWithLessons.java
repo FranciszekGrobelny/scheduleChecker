@@ -2,6 +2,7 @@ package project.inz.scheduleChecker.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import project.inz.scheduleChecker.model.*;
 import project.inz.scheduleChecker.service.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.List;
@@ -38,8 +42,11 @@ public class addPlanWithLessons {
     }
 
     @GetMapping("/addLesson")
-    public String addLesson() {
-
+    public String addLesson(@RequestParam String klasa,
+                            HttpServletResponse response) {
+        Cookie className = new Cookie("className", klasa);
+        response.addCookie(className);
+        log.warn("dodało się ciasteczko {}",className.getValue());
         return "/add/planWithLessons.jsp";
     }
 
@@ -49,15 +56,33 @@ public class addPlanWithLessons {
                             @RequestParam(required = false) boolean connected,
                             @RequestParam int room,
                             @RequestParam Long dayId,
-                            @RequestParam int lessonNumber) {
+                            @RequestParam int lessonNumber,
+                            HttpServletRequest request
+                            ) {
+        String className = null;
+        for(Cookie cookie : request.getCookies()){
+            if(cookie.getName().equals("className")){
+                className=cookie.getValue();
+            }
+        }
         Day day =dayService.findByIdNoOptional(dayId);
         LocalTime start = getStartTime(lessonNumber, day);
         LocalTime stop = getEndTime(start,revalidationLesson);
-        Plan plan = planService.findPlanById((long) 1);
-        Lesson lesson = new Lesson(revalidationLesson, connected, lessonNumber,start, stop, teacherService.findTeacherById(teacherId), "Religia", room, plan, day);
+        Plan plan = planService.findPlanByClass(className);
+        Lesson lesson = new Lesson(
+                revalidationLesson,
+                connected,
+                lessonNumber,
+                start,
+                stop,
+                teacherService.findTeacherById(teacherId),
+                "Religia",
+                room,
+                plan,
+                day);
         lessonService.save(lesson);
 
-        return "redirect:/addLesson";
+        return "redirect:/addLesson?klasa="+className;
     }
 
     @PostMapping("/addPlan")
