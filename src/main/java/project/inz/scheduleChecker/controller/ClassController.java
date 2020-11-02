@@ -3,20 +3,19 @@ package project.inz.scheduleChecker.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.inz.scheduleChecker.model.Class;
+import project.inz.scheduleChecker.model.Plan;
 import project.inz.scheduleChecker.model.Teacher;
 import project.inz.scheduleChecker.model.TopicWithHoursQuantity;
 import project.inz.scheduleChecker.service.ClassService;
+import project.inz.scheduleChecker.service.PlanService;
 import project.inz.scheduleChecker.service.TeacherService;
 import project.inz.scheduleChecker.service.TopicWithHoursQuantityService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +24,13 @@ import java.util.List;
 public class ClassController {
 
     private final ClassService classService;
+    private final PlanService planService;
     private final TeacherService teacherService;
     private final TopicWithHoursQuantityService topicWithHoursQuantityService;
 
-    public ClassController(ClassService classService, TeacherService teacherService, TopicWithHoursQuantityService topicWithHoursQuantityService) {
+    public ClassController(ClassService classService, PlanService planService, TeacherService teacherService, TopicWithHoursQuantityService topicWithHoursQuantityService) {
         this.classService = classService;
+        this.planService = planService;
         this.teacherService = teacherService;
         this.topicWithHoursQuantityService = topicWithHoursQuantityService;
     }
@@ -53,7 +54,13 @@ public class ClassController {
         try {
             List<TopicWithHoursQuantity> topicsList = new ArrayList<>();
             Class clas = new Class(name,arabicName,teacherService.findTeacherById(teacherId),lessonsHoursQuantity, topicsList);
-            classService.save(clas);
+            if(planService.findPlanByClassOpt(name).isEmpty()){
+                classService.save(clas);
+                planService.save(new Plan(clas));
+            }else{
+                classService.save(clas);
+            }
+
             Cookie addedClassName = new Cookie("addedClassName", name);
             response.addCookie(addedClassName);
             return "redirect:/addClass";
@@ -85,6 +92,7 @@ public class ClassController {
             topicsList.add(topicWithHoursQuantity);
             clas.setTopicsWithHoursQuantities(topicsList);
             classService.update(clas);
+
 
             log.warn(topicWithHoursQuantity.toString());
             log.warn(clas.toString());
