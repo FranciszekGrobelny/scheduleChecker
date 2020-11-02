@@ -32,6 +32,9 @@ public class PlanService {
     public Plan findPlanByClass(String className){
         return planRepository.findPlanByClass(className);
     }
+    public Optional<Plan> findPlanByClassOpt(String className){
+        return planRepository.findPlanByClassOpt(className);
+    }
 
     public void update(Plan plan){
         planRepository.save(plan);

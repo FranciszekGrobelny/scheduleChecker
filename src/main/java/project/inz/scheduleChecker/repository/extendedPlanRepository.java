@@ -2,8 +2,11 @@ package project.inz.scheduleChecker.repository;
 
 import project.inz.scheduleChecker.model.Plan;
 
-public interface extendedPlanRepository {
-    public Plan findPlanById(Long id);
+import java.util.Optional;
 
-    public Plan findPlanByClass(String className);
+public interface extendedPlanRepository {
+
+    Plan findPlanById(Long id);
+    Plan findPlanByClass(String className);
+    Optional<Plan> findPlanByClassOpt(String className);
 }
