@@ -17,4 +17,9 @@ public class Plan extends ParentEntity{
     @OneToOne
     private Class clas;
 
+    public Plan() {
+    }
+    public Plan(Class clas) {
+        this.clas = clas;
+    }
 }
