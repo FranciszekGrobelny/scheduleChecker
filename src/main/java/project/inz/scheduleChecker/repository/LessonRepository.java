@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface LessonRepository extends JpaRepository<Lesson, Long>, extendedLessonRepository {
 
-    List<Lesson> findLessonsByDay(Day day);
+
 }
