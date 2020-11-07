@@ -58,6 +58,9 @@ public class addPlanWithLessons {
         }
         model.addAttribute("topics",topics);
         log.warn("dodało się ciasteczko {}",className.getValue());
+
+        log.warn("czy plan co do pokoi jest git {} ",areRoomsInPlanCorrectlyChosen(Long.parseLong("1")));
+
         return "/add/planWithLessons.jsp";
     }
 
@@ -139,5 +142,37 @@ public class addPlanWithLessons {
             stop = start.plusMinutes(45);
         }
         return stop;
+    }
+    
+    private boolean areRoomsInPlanCorrectlyChosen(Long dayId){
+        List<Lesson> lessons = lessonService.findLessonsByDayId(dayId);                     //  0 1 2 3 4 5
+        // indeksy ostatnich powtarzajacych sie sali(do którego indeksu jest ta sama sala), np. 2 2 3 3 4 5 = 1, 3, 4, 5
+        List<Integer> indexesOfLastSameRooms = new ArrayList<>();
+        boolean isError=true;
+
+        for (int i = 0; i < lessons.size(); i++ ) {
+            if(i == lessons.size()-1){
+                indexesOfLastSameRooms.add(i);
+            }else{
+                if(lessons.get(i).getRoom()!=lessons.get(i+1).getRoom()){
+                    indexesOfLastSameRooms.add(i);
+                }
+            }
+        }
+
+        for(int i = 0, j = 0; i < lessons.size(); i++){
+            if(i<indexesOfLastSameRooms.get(j)){
+                if(lessons.get(i).getStartTime().isAfter(lessons.get(i+1).getEndTime()) || lessons.get(i).getStartTime().equals(lessons.get(i+1).getStartTime()) ){
+                    isError = false;
+                }
+            }else if(i==indexesOfLastSameRooms.get(j)){
+
+            }else{
+                i--;
+                j++;
+            }
+
+        }
+        return isError;
     }
 }
