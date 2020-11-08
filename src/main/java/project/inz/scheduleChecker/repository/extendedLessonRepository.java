@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface extendedLessonRepository {
     List<Lesson> findAllLessonsByDayWhereLessonNumberIsLoverThan(Day day, int lessonNumber);
-    List<Lesson> findLessonsByDayId(Long dayId);
+    List<Lesson> findLessonsByDayIdOrderByRooms(Long dayId);
+    List<Lesson> findLessonsByDayIdOrderByTeachersName(Long dayId);
+
 }

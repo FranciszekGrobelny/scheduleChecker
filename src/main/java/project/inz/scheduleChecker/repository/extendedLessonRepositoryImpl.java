@@ -22,8 +22,16 @@ public class extendedLessonRepositoryImpl implements extendedLessonRepository {
     }
 
     @Override
-    public List<Lesson> findLessonsByDayId(Long dayId) {
+    public List<Lesson> findLessonsByDayIdOrderByRooms(Long dayId) {
         TypedQuery<Lesson> q = entityManager.createQuery("SELECT DISTINCT l FROM Lesson l LEFT JOIN FETCH l.plan p JOIN FETCH p.clas c JOIN FETCH c.topicsWithHoursQuantities WHERE l.day.id=:dayId ORDER BY l.room, l.startTime",Lesson.class);
         return q.setParameter("dayId", dayId).getResultList();
     }
+
+    @Override
+    public List<Lesson> findLessonsByDayIdOrderByTeachersName(Long dayId) {
+        TypedQuery<Lesson> q = entityManager.createQuery("SELECT DISTINCT l FROM Lesson l LEFT JOIN FETCH l.plan p JOIN FETCH p.clas c JOIN FETCH c.topicsWithHoursQuantities WHERE l.day.id=:dayId ORDER BY l.teacher.id, l.startTime",Lesson.class);
+        return q.setParameter("dayId", dayId).getResultList();
+    }
+
+
 }

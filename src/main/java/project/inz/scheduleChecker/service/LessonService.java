@@ -24,8 +24,11 @@ public class LessonService {
         return lessonRepository.findAll();
     }
 
-    public List<Lesson> findLessonsByDayId(Long dayId){
-        return lessonRepository.findLessonsByDayId(dayId);
+    public List<Lesson> findLessonsByDayIdOrderByRooms(Long dayId){
+        return lessonRepository.findLessonsByDayIdOrderByRooms(dayId);
+    }
+    public List<Lesson> findLessonsByDayIdOrderByTeachersName(Long dayId){
+        return lessonRepository.findLessonsByDayIdOrderByTeachersName(dayId);
     }
 
     public List<Lesson> findAllLessonsByDayWhereLessonNumberIsLoverThan(Day day, int lessonNumber){ return lessonRepository.findAllLessonsByDayWhereLessonNumberIsLoverThan(day,lessonNumber);}
