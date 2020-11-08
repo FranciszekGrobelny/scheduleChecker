@@ -49,7 +49,9 @@
     </tr>
 </c:forEach>
 </table>
-<button id="addLessons" type="button">Dodaj stwó©z kolejne lekcje</button>
+<form method="post" action="/check">
+    <button type="submit" >Sprawdź poprawność</button>
+</form>
 
 <%--<script src="<c:url value= "/resources/js/lesson.js"/>"></script>--%>
 </body>
