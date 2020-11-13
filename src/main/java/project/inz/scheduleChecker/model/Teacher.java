@@ -15,7 +15,7 @@ public class Teacher extends ParentEntity {
 
     private String initialLetters;
 
-    private String hours;
+    private int hours;
 
     private boolean isSpecialist;
 
