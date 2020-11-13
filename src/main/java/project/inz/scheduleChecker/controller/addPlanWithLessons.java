@@ -59,6 +59,8 @@ public class addPlanWithLessons {
         model.addAttribute("topics",topics);
         log.warn("dodało się ciasteczko {}",className.getValue());
 
+        log.warn("{}", returnListOfTeachersWhoHaveNotCompletedLessonsHours());ecker
+                
         return "/add/planWithLessons.jsp";
     }
 
@@ -229,5 +231,19 @@ public class addPlanWithLessons {
             }
         }
         return isCorrect;
+    }
+    private void returnTeachersListThatArent(){
+
+    }
+
+    private List<Teacher> returnListOfTeachersWhoHaveNotCompletedLessonsHours(){
+        List<Teacher> teachersWithNoCompletedDiagram = new ArrayList<>();
+        List<Teacher> allTeachers = teacherService.findAll();
+        for(Teacher t : allTeachers){
+            if(t.getHours()!=lessonService.getNumberOfLessonsForTeacherWithId(t.getId())){
+                teachersWithNoCompletedDiagram.add(t);
+            }
+        }
+        return teachersWithNoCompletedDiagram;
     }
 }
