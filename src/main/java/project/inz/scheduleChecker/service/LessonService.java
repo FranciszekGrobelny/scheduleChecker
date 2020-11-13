@@ -33,6 +33,7 @@ public class LessonService {
 
     public List<Lesson> findAllLessonsByDayWhereLessonNumberIsLoverThan(Day day, int lessonNumber){ return lessonRepository.findAllLessonsByDayWhereLessonNumberIsLoverThan(day,lessonNumber);}
 
+    public Long getNumberOfLessonsForTeacherWithId(Long teacherId){return lessonRepository.getNumberOfLessonsForTeacherWithId(teacherId);}
     public void update(Lesson lesson){
         lessonRepository.save(lesson);
     }
