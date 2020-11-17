@@ -59,7 +59,7 @@ public class addPlanWithLessons {
         model.addAttribute("topics",topics);
         log.warn("dodało się ciasteczko {}",className.getValue());
 
-        log.warn("{}", returnListOfTeachersWhoHaveNotCompletedLessonsHours());ecker
+        log.warn("{}", returnListOfClassesWhereLessonsHoursAreNotCompleted());
                 
         return "/add/planWithLessons.jsp";
     }
@@ -232,9 +232,6 @@ public class addPlanWithLessons {
         }
         return isCorrect;
     }
-    private void returnTeachersListThatArent(){
-
-    }
 
     private List<Teacher> returnListOfTeachersWhoHaveNotCompletedLessonsHours(){
         List<Teacher> teachersWithNoCompletedDiagram = new ArrayList<>();
@@ -245,5 +242,19 @@ public class addPlanWithLessons {
             }
         }
         return teachersWithNoCompletedDiagram;
+    }
+
+    private List<String> returnListOfClassesWhereLessonsHoursAreNotCompleted(){
+        List<String> classesWithNoCompletedDiagram = new ArrayList<>();
+        List<Class> allClasses = classService.findAllWithTopics();
+        for(Class c : allClasses){
+            List<TopicWithHoursQuantity> topicWithHoursQuantityList = c.getTopicsWithHoursQuantities();
+            for(TopicWithHoursQuantity t : topicWithHoursQuantityList){
+                if(t.getHoursQuantity()!=lessonService.getNumberOfLessonsForClassAndTopic(c.getName(),t.getTopic())){
+                    classesWithNoCompletedDiagram.add("W klasie "+c.getName()+" o podanej lekcji "+t.getTopic()+" powinno być lekcji "+t.getHoursQuantity()+" a jest "+lessonService.getNumberOfLessonsForClassAndTopic(c.getName(),t.getTopic()));
+                }
+            }
+        }
+        return classesWithNoCompletedDiagram;
     }
 }
