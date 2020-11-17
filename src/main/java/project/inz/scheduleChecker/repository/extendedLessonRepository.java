@@ -10,5 +10,6 @@ public interface extendedLessonRepository {
     List<Lesson> findLessonsByDayIdOrderByRooms(Long dayId);
     List<Lesson> findLessonsByDayIdOrderByTeachersName(Long dayId);
     Long getNumberOfLessonsForTeacherWithId(Long teacherId);
+    Long getNumberOfLessonsForClassAndTopic(String className, String topic);
 
 }

@@ -42,6 +42,8 @@ public class LessonService {
         lessonRepository.deleteById(id);
     }
 
+    public Long getNumberOfLessonsForClassAndTopic(String className, String topic){return lessonRepository.getNumberOfLessonsForClassAndTopic(className,topic);}
+
 
 
 }

@@ -39,6 +39,10 @@ public class extendedLessonRepositoryImpl implements extendedLessonRepository {
         Query q = entityManager.createQuery("SELECT DISTINCT COUNT(l) FROM Lesson l  WHERE l.teacher.id=:teacherId");
         return (Long) q.setParameter("teacherId", teacherId).getSingleResult();
     }
-
+    @Override
+    public Long getNumberOfLessonsForClassAndTopic(String className, String topic) {
+        Query q = entityManager.createQuery("SELECT DISTINCT COUNT(l) FROM Lesson l  WHERE l.plan.clas.name=:className AND l.topic=:topic");
+        return (Long) q.setParameter("className", className).setParameter("topic",topic).getSingleResult();
+    }
 
 }
