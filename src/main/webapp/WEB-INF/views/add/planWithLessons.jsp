@@ -8,7 +8,26 @@
         table, th, td {
             border:  solid black 3px;
         }
+        .popup .overlay{
+            position: fixed;
+            display: block;
+        }
+        .popup .content{
+            position: absolute;
+            display: none;
+        }
+        .popup.active .overlay{
+            display: none;
+        }
+        .popup.active .content{
+            display: block;
+        }
     </style>
+    <script>
+        function togglePopup(){
+            document.getElementById("popup").classList.toggle("active");
+        }
+    </script>
 </head>
 <body>
 <a href="/addLesson?klasa=IV">klasa IV</a>
@@ -50,9 +69,18 @@
 </c:forEach>
 </table>
 <form method="post" action="/check">
-    <button type="submit" >Sprawdź poprawność</button>
+    <button type="submit" onclick="togglePopup()" >Sprawdź poprawność</button>
 </form>
 
+<button onclick="togglePopup()" >pop up</button>
+<div class="popup" id="popup">
+    <div class="overlay">
+    </div>
+    <div class="content">
+        wiadomość z popupa!
+        <button onclick="togglePopup()" >zamknij</button>
+    </div>
+</div>
 <%--<script src="<c:url value= "/resources/js/lesson.js"/>"></script>--%>
 </body>
 </html>
