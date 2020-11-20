@@ -31,7 +31,12 @@ public class addPlanWithLessons {
     private final SettingService settingService;
     private final ClassService classService;
 
-    public addPlanWithLessons(PlanService planService, LessonService lessonService, TeacherService teacherService, DayService dayService, SettingService settingService, ClassService classService) {
+    public addPlanWithLessons(PlanService planService,
+                              LessonService lessonService,
+                              TeacherService teacherService,
+                              DayService dayService,
+                              SettingService settingService,
+                              ClassService classService) {
         this.planService = planService;
         this.lessonService = lessonService;
         this.teacherService = teacherService;
@@ -57,8 +62,9 @@ public class addPlanWithLessons {
             topics.add(t.getTopic());
         }
         model.addAttribute("topics",topics);
-        log.warn("dodało się ciasteczko {}",className.getValue());
+        model.addAttribute("allClasses", classService.findAllWithTopics());
 
+        log.warn("dodało się ciasteczko {}",className.getValue());
         log.warn("{}", returnListOfClassesWhereLessonsHoursAreNotCompleted());
                 
         return "/add/planWithLessons.jsp";
@@ -155,8 +161,8 @@ public class addPlanWithLessons {
             }
         }
 
-        log.warn("czy plan dla pokoi jest git? {} ",correctRooms);
-        log.warn("czy plan dla nauczycieli jest git? {} ",correctTeachers);
+        log.warn("czy plany dla sal jest git? {} ",correctRooms);
+        log.warn("czy plany dla nauczycieli jest git? {} ",correctTeachers);
         return "redirect:/addLesson?klasa="+className;
     }
 

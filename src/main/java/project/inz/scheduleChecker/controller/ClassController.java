@@ -3,6 +3,7 @@ package project.inz.scheduleChecker.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.inz.scheduleChecker.model.Class;
 import project.inz.scheduleChecker.model.Plan;
@@ -41,7 +42,13 @@ public class ClassController {
     }
 
     @GetMapping("/addClass")
-    public String addClass() {
+    public String addClass(Model model) {
+        log.warn("{}", classService.findAllWithTopics().size());
+        try{
+            model.addAttribute("className",classService.findAllWithTopics().get(0).getName());
+        }catch(IndexOutOfBoundsException exception){
+            model.addAttribute("className","empty");
+        }
         return "/add/class.jsp";
     }
 
