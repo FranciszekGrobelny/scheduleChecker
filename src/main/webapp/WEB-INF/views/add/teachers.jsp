@@ -7,6 +7,7 @@
     <title>Dodaj nauczyciela</title>
 </head>
 <body>
+<a href="/addClass">Dodaj klasy</a>
 <form:form method="POST" modelAttribute="teacher">
     Inicjały nauczyciela: <form:input path="initialLetters"/><br>
     Godziny do wypracowania: <form:input path="hours"/><br>

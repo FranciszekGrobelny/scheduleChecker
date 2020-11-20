@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-hello world
+<a href="/addSettings">Dodaj ustawienia</a>
 </body>
 </html>

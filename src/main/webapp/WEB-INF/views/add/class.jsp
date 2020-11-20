@@ -6,6 +6,10 @@
     <title>Dodaj klasę</title>
 </head>
 <body>
+<c:if test="${className != 'empty'}">
+    <a href="/addLesson?klasa=${className}">Dodaj plany dla klas</a>
+</c:if>
+
 <form method="POST" >
     nazwa klasy rzymskimi: <input type="text" name="name"/><br>
     nazwa klasa arabskimi: <input type="text" name="arabicName"/><br>

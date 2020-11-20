@@ -6,6 +6,7 @@
     <title>Dodaj ustawienia</title>
 </head>
 <body>
+<a href="/addTeacher">Dodaj nauczycieli</a>
 <form method="POST" >
     <c:choose>
         <c:when test="${settings.size() > 0}">

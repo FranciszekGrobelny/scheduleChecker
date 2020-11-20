@@ -30,7 +30,10 @@
     </script>
 </head>
 <body>
-<a href="/addLesson?klasa=IV">klasa IV</a>
+<c:forEach items="${allClasses}" var="class">
+    <a href="/addLesson?klasa=${class.name}">klasa ${class.name}</a><br>
+</c:forEach>
+
 <table>
     <tr>
         <th>Nr</th>
