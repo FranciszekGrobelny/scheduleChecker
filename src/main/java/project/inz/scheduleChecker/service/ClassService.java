@@ -18,6 +18,9 @@ public class ClassService {
     public void save(Class clas){
         classRepository.save(clas);
     }
+    public List<Class> findAll(){
+        return classRepository.findAll();
+    }
 
     public List<Class> findAllWithTopics(){
         return classRepository.findAllWithTopics();
