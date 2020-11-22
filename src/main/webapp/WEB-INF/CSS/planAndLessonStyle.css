@@ -1,0 +1,49 @@
+table, th, td {
+    border: solid black 3px;
+}
+
+.background .content {
+    display: none;
+}
+
+.background.active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.3);
+    width: 100vw;
+    height: 100vh;
+}
+
+.background.active > .content{
+    position: relative;
+    display: block;
+    z-index: 1;
+    width: 25vw;
+    height: 20vh;
+   margin: 0 auto;
+    top: 40%;
+    background-color: aquamarine;
+    text-align: center;
+    padding: 10px;
+}
+#popupButton{
+    position: absolute;
+    bottom: 10px;
+    left: 42%;
+}status
+.tableWithHeader{
+    max-width: 138px;
+    margin: 0 auto;
+    border: 3px solid black;
+}
+.tableHeader{
+    width: 100%;
+    text-align: center;
+    /*border: 3px solid black;*/
+}
+#table{
+    width: 100%;
+    margin: 0 auto;
+
+}
