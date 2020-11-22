@@ -63,6 +63,7 @@ public class addPlanWithLessons {
         }
         model.addAttribute("topics",topics);
         model.addAttribute("allClasses", classService.findAllWithTopics());
+        model.addAttribute("className", klasa);
 
         log.warn("dodało się ciasteczko {}",className.getValue());
         log.warn("{}", returnListOfClassesWhereLessonsHoursAreNotCompleted());
