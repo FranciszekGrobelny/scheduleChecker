@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
 <html>
 <head>
     <title>Dodaj lekcje do planu</title>
@@ -66,9 +67,20 @@
 <div class="popup">
     <div class="background" id="background">
         <div class="content">
-            <p>wiadomość z popupa!</p>
-            <p>wiadomość z popupa!jshgdfjksdgsdhjgjksdhgfsdjkhgsdjkhgfsdjkyfgfkjgh</p>
-            <p>wiadomość z popupa!</p><br/>
+            <textarea id="popupTextarea">
+                <c:if test="${areRoomsCorrect==false}">
+                    Sale zostały źle dobrane w planach. Nakładają się!
+                </c:if>
+                <c:if test="${areTeachersCorrect==false}">
+                    Godziny lekcyjne nauczycieli nakłądają się. Sprawdź to!
+                </c:if>
+                <c:forEach items="${teachersText}" var="text">
+                    ${text}
+                </c:forEach>
+                <c:forEach items="${classesText}" var="text">
+                    ${text}
+                </c:forEach>
+            </textarea>
             <button id="popupButton" onclick="togglePopup()" >zamknij</button>
         </div>
     </div>
