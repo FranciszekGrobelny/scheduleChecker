@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface extendedLessonRepository {
     List<Lesson> findAllLessonsByDayWhereLessonNumberIsLoverThan(Day day, int lessonNumber);
-    List<Lesson> findLessonsByDayIdOrderByRooms(Long dayId);
-    List<Lesson> findLessonsByDayIdOrderByTeachersName(Long dayId);
+    List<Lesson> findLessonsByDayIdOrderByRoomsAndStartTime(Long dayId);
+    List<Lesson> findLessonsByDayIdOrderByTeachersNameAndStartTime(Long dayId);
     Long getNumberOfLessonsForTeacherWithId(Long teacherId);
     Long getNumberOfLessonsForClassAndTopic(String className, String topic);
 
