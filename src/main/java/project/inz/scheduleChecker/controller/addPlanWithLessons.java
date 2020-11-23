@@ -65,9 +65,14 @@ public class addPlanWithLessons {
         model.addAttribute("allClasses", classService.findAllWithTopics());
         model.addAttribute("className", klasa);
 
+        if(model.getAttribute("areRoomsCorrect") != null){
+            model.addAttribute("areTeachersCorrect",model.getAttribute("areTeachersCorrect"));
+            model.addAttribute("areRoomsCorrect",model.getAttribute("areRoomsCorrect"));
+            model.addAttribute("teachersText",model.getAttribute("teachersText"));
+            model.addAttribute("classesText",model.getAttribute("classesText"));
+        }
+
         log.warn("dodało się ciasteczko {}",className.getValue());
-        log.warn("{}", returnListOfClassesWhereLessonsHoursAreNotCompleted());
-                
         return "/add/planWithLessons.jsp";
     }
 
@@ -140,33 +145,6 @@ public class addPlanWithLessons {
         }
         return start;
     }
-
-    @PostMapping("/check")
-    public String checkPlan(HttpServletRequest request){
-        boolean correctRooms = true;
-        boolean correctTeachers = true;
-        String className = null;
-        for(Cookie cookie : request.getCookies()){
-            if(cookie.getName().equals("className")){
-                className=cookie.getValue();
-            }
-        }
-        for(long i = 1;i<=5;i++){
-            if(!areRoomsInPlanCorrectlyChosen(i)){
-                correctRooms = false;
-            }
-        }
-        for(long i = 1;i<=5;i++){
-            if(!areTeachersInPlanCorrectlyChosen(i)){
-                correctTeachers = false;
-            }
-        }
-
-        log.warn("czy plany dla sal jest git? {} ",correctRooms);
-        log.warn("czy plany dla nauczycieli jest git? {} ",correctTeachers);
-        return "redirect:/addLesson?klasa="+className;
-    }
-
     private LocalTime getEndTime(LocalTime start, boolean revalidationLesson){
         LocalTime stop;
         if(revalidationLesson){
@@ -176,92 +154,5 @@ public class addPlanWithLessons {
         }
         return stop;
     }
-    
-    private boolean areRoomsInPlanCorrectlyChosen(Long dayId){
-        boolean isCorrect=true;
-        if(lessonService.findLessonsByDayIdOrderByRooms(dayId).size()!=0){
-            List<Lesson> lessons = lessonService.findLessonsByDayIdOrderByRooms(dayId);                     //  0 1 2 3 4 5
-            // indeksy ostatnich powtarzajacych sie sali(do którego indeksu jest ta sama sala), np. 2 2 3 3 4 5 = 1, 3, 4, 5
-            List<Integer> indexesOfLastSameRooms = new ArrayList<>();
 
-
-            for (int i = 0; i < lessons.size(); i++ ) {
-                if(i == lessons.size()-1){
-                    indexesOfLastSameRooms.add(i);
-                }else{
-                    if(lessons.get(i).getRoom()!=lessons.get(i+1).getRoom()){
-                        indexesOfLastSameRooms.add(i);
-                    }
-                }
-            }
-
-            for(int i = 0, j = 0; i < lessons.size(); i++){
-                if(i<indexesOfLastSameRooms.get(j)){
-                    if(lessons.get(i).getStartTime().isAfter(lessons.get(i+1).getEndTime()) || lessons.get(i).getStartTime().equals(lessons.get(i+1).getStartTime()) ){
-                        isCorrect = false;
-                    }
-                }else if(i==indexesOfLastSameRooms.get(j)){
-                }else{
-                    i--;
-                    j++;
-                }
-            }
-        }
-        return isCorrect;
-    }
-
-    private boolean areTeachersInPlanCorrectlyChosen(Long dayId) {
-        List<Lesson> lessons = lessonService.findLessonsByDayIdOrderByTeachersName(dayId);
-        log.warn("lekcje dla nauczycieli{}", lessonService.findLessonsByDayIdOrderByTeachersName(dayId).size());
-        List<Integer> indexesOfLastSameTeachers = new ArrayList<>();
-        boolean isCorrect=true;
-
-        for (int i = 0; i < lessons.size(); i++ ) {
-            if(i == lessons.size()-1){
-                indexesOfLastSameTeachers.add(i);
-            }else{
-                if(lessons.get(i).getTeacher().getInitialLetters()!=lessons.get(i+1).getTeacher().getInitialLetters()){
-                    indexesOfLastSameTeachers.add(i);
-                }
-            }
-        }
-
-        for(int i = 0, j = 0; i < lessons.size(); i++){
-            if(i<indexesOfLastSameTeachers.get(j)){
-                if(lessons.get(i).getStartTime().isAfter(lessons.get(i+1).getEndTime()) || lessons.get(i).getStartTime().equals(lessons.get(i+1).getStartTime()) ){
-                    isCorrect = false;
-                }
-            }else if(i==indexesOfLastSameTeachers.get(j)){
-            }else{
-                i--;
-                j++;
-            }
-        }
-        return isCorrect;
-    }
-
-    private List<Teacher> returnListOfTeachersWhoHaveNotCompletedLessonsHours(){
-        List<Teacher> teachersWithNoCompletedDiagram = new ArrayList<>();
-        List<Teacher> allTeachers = teacherService.findAll();
-        for(Teacher t : allTeachers){
-            if(t.getHours()!=lessonService.getNumberOfLessonsForTeacherWithId(t.getId())){
-                teachersWithNoCompletedDiagram.add(t);
-            }
-        }
-        return teachersWithNoCompletedDiagram;
-    }
-
-    private List<String> returnListOfClassesWhereLessonsHoursAreNotCompleted(){
-        List<String> classesWithNoCompletedDiagram = new ArrayList<>();
-        List<Class> allClasses = classService.findAllWithTopics();
-        for(Class c : allClasses){
-            List<TopicWithHoursQuantity> topicWithHoursQuantityList = c.getTopicsWithHoursQuantities();
-            for(TopicWithHoursQuantity t : topicWithHoursQuantityList){
-                if(t.getHoursQuantity()!=lessonService.getNumberOfLessonsForClassAndTopic(c.getName(),t.getTopic())){
-                    classesWithNoCompletedDiagram.add("W klasie "+c.getName()+" o podanej lekcji "+t.getTopic()+" powinno być lekcji "+t.getHoursQuantity()+" a jest "+lessonService.getNumberOfLessonsForClassAndTopic(c.getName(),t.getTopic()));
-                }
-            }
-        }
-        return classesWithNoCompletedDiagram;
-    }
 }
