@@ -22,8 +22,8 @@ table, th, td {
     width: 70vw;
     height: 50vh;
    margin: 0 auto;
-    top: 40%;
-    background-color: aquamarine;
+    top: 30%;
+    background-color: rgba(215, 169, 69, 0.90); /*   (215, 169, 69, 1)     (38, 180, 142, 0.9)*/
     text-align: center;
     padding: 10px;
 }
@@ -32,9 +32,9 @@ table, th, td {
     padding-top: 3px;
     bottom: 10px;
     left: 42%;
-}status
+}
 .tableWithHeader{
-    max-width: 138px;
+    max-width: 75%;
     margin: 0 auto;
     border: 3px solid black;
 }
