@@ -55,9 +55,9 @@ public class AddSettingsController {
                 settingService.save(setting);
             }
             log.warn(settingService.findAll().toString());
-            return "/index.jsp";
+            return "/add/settings.jsp";
         } catch (DataIntegrityViolationException e) {
-            System.out.println("Double teacher initials " + e.getMessage());
+            System.out.println(e.getMessage());
         }
         return "/add/duplicateEntryError.jsp";
     }
