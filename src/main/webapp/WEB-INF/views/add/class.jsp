@@ -12,8 +12,7 @@
 </c:if>
 
 <form method="POST" >
-    nazwa klasy rzymskimi: <input type="text" name="name"/><br>
-    nazwa klasa arabskimi: <input type="text" name="arabicName"/><br>
+    nazwa klasy: <input type="text" name="name"/><br>
     główny nauczyciel:
     <select name="teacherId" >
         <c:forEach items="${teachers}" var="teacher">
@@ -28,6 +27,7 @@
 <form method="POST"  action="addTopicWithHoursQuantity">
     topic: <input name="topic"/><br>
     liczba godzin: <input name="hours"/><br>
+    <sec:csrfInput/>
     <input type="submit" />
 </form>
 
