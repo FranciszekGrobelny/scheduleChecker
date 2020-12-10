@@ -36,22 +36,22 @@
             <c:forEach var="i" begin="1" end="5">
                 <td>
                     <form method="post" action="/addLesson">
-                        Rewalidacja?<input type="checkbox" name="revalidationLesson" ><br/>
+                        Rewalidacja?<input class="revalidation" type="checkbox" name="revalidationLesson" ><br/>
         <%--                Zajęcia Łączone?<input type="checkbox" name="connected" ><br/>--%>
-                        <select name="topic" >
+                        <select class="topic" name="topic" >
                             <c:forEach items="${topics}" var="topic">
                                 <option value="${topic}">${topic}</option>
                             </c:forEach>
                         </select><br>
-                        Numer sali <input type="number" name="room" ><br/>
-                        <select name="teacherId" >
+                        Numer sali  <input class="room" type="number" name="room" ><br/>
+                        <select class="teacher" name="teacherId" >
                             <c:forEach items="${teachers}" var="teacher">
                                 <option value="${teacher.id}">${teacher.initialLetters}</option>
                             </c:forEach>
                         </select><br>
-                        <input type="hidden" name="dayId" value="${i}">
-                        <input type="hidden" name="lessonNumber" value="${j}">
-                        <input type="submit" value="Dodaj lekcję">
+                        <input class="day" type="hidden" name="dayId" value="${i}">
+                        <input class="lessonNumber" type="hidden" name="lessonNumber" value="${j}">
+                        <button type="submit" class="lessonSubButton" data-ajax="POST">Dodaj nowa kasiazke </button>
                         <sec:csrfInput/>
                     </form>
                 </td>
@@ -88,6 +88,9 @@
         </div>
     </div>
 </div>
-<%--<script src="<c:url value= "/resources/js/lesson.js"/>"></script>--%>
+
+<script src="<c:url value="/resources/js/jquery-3.5.1.min.js"/>" ></script>
+<%--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" ></script>--%>
+<script type="text/javascript" src="<c:url value= "/resources/js/sendLessonInfoToController.js"/>"></script>
 </body>
 </html>
