@@ -98,7 +98,6 @@ public class addPlanWithLessons {
         Plan plan = planService.findPlanByClass(className);
         Lesson lesson = new Lesson(
                 revalidationLesson,
-                connected,
                 lessonNumber,
                 start,
                 stop,
