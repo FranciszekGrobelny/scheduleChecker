@@ -37,7 +37,6 @@
                 <td>
                     <form method="post" action="/addLesson">
                         Rewalidacja?<input class="revalidation" type="checkbox" name="revalidationLesson" ><br/>
-        <%--                Zajęcia Łączone?<input type="checkbox" name="connected" ><br/>--%>
                         <select class="topic" name="topic" >
                             <c:forEach items="${topics}" var="topic">
                                 <option value="${topic}">${topic}</option>
@@ -51,7 +50,7 @@
                         </select><br>
                         <input class="day" type="hidden" name="dayId" value="${i}">
                         <input class="lessonNumber" type="hidden" name="lessonNumber" value="${j}">
-                        <button type="submit" class="lessonSubButton" data-ajax="POST">Dodaj nowa kasiazke </button>
+                        <button type="submit" class="lessonSubButton" data-ajax="POST">Dodaj lekcje do planu </button>
                         <sec:csrfInput/>
                     </form>
                 </td>
