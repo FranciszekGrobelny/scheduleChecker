@@ -44,10 +44,9 @@ public class Lesson extends ParentEntity {
     public Lesson() {
     }
 
-    public Lesson(boolean revalidationLesson,boolean connected,int lessonNumber,LocalTime startTime,LocalTime endTime,
+    public Lesson(boolean revalidationLesson,int lessonNumber,LocalTime startTime,LocalTime endTime,
                   Teacher teacher,String topic,int room,Plan plan, Day day) {
         this.revalidationLesson = revalidationLesson;
-        this.connected = connected;
         this.lessonNumber = lessonNumber;
         this.startTime = startTime;
         this.endTime = endTime;
