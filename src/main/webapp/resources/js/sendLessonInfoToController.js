@@ -6,20 +6,12 @@ $(function () {
     });
     var url = 'http://localhost:8080/addLessonRest';
     var subButton = $('.lessonSubButton');
-    var lesson = function(revalidationCheckBox, topic, room, teacher, day , lessonNumber){
-        this.revalidationCheckBox = revalidationCheckBox;
-        this.topic = topic;
-        this.room = room;
-        this.teacher = teacher;
-        this.day = day;
-        this.lessonNumber = lessonNumber;
-    };
 
     subButton.on('click',function (e) {
         e.preventDefault();
-        var form = subButton.parent();
+        var form = $(this).parent();
         var newLesson = {
-            revalidation: form.find('.revalidation').val(),
+            revalidation: form.find('.revalidation').is(':checked'),
             topic: form.find('.topic').val(),
             room: form.find('.room').val(),
             teacherId: form.find('.teacher').val(),
