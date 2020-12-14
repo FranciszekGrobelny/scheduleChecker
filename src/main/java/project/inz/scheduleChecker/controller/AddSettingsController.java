@@ -35,18 +35,14 @@ public class AddSettingsController {
 
     @PostMapping("/addSettings")
     public String addSetting(@RequestParam int longBreakAfterLesson,
-                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime breakAfter45minLesson,
-                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime breakAfter60minLesson,
-                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime longBreakFor45minLesson,
-                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime longBreakFor60minLesson,
+                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime shortBreak,
+                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime longBreak,
                              @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime firstLessonStartTime) {
 
         Setting setting = new Setting(
                 longBreakAfterLesson,
-                breakAfter45minLesson,
-                breakAfter60minLesson,
-                longBreakFor45minLesson,
-                longBreakFor60minLesson,
+                shortBreak,
+                longBreak,
                 firstLessonStartTime);
         try {
             if (settingService.findAll().size() > 0) {
@@ -55,7 +51,7 @@ public class AddSettingsController {
                 settingService.save(setting);
             }
             log.warn(settingService.findAll().toString());
-            return "/add/settings.jsp";
+            return "redirect:/addSettings";
         } catch (DataIntegrityViolationException e) {
             System.out.println(e.getMessage());
         }

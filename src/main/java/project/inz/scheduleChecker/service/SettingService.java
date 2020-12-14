@@ -30,10 +30,8 @@ public class SettingService {
         Setting setting = settingRepository.findFirst();
         list.add(Integer.toString(setting.getLongBreakAfterLesson()));
         list.add(setting.getFirstLessonStartTime().toString());
-        list.add(setting.getBreakAfter45minLesson().toString());
-        list.add(setting.getBreakAfter60minLesson().toString());
-        list.add(setting.getLongBreakFor45minLesson().toString());
-        list.add(setting.getLongBreakFor60minLesson().toString());
+        list.add(setting.getShortBreak().toString());
+        list.add(setting.getLongBreak().toString());
 
         return list;
     }
