@@ -127,19 +127,10 @@ public class addPlanWithLessons {
             Optional<Lesson> lessonBefore = lessons.stream()
                     .sorted(Comparator.comparing(Lesson::getLessonNumber).reversed())
                     .findFirst();
-            log.warn("{}",lessonBefore.toString());
-            if(lessonBefore.get().isRevalidationLesson()){
-                if(lessonBefore.get().getLessonNumber()==settings.getLongBreakAfterLesson()){
-                    start = lessonBefore.get().getEndTime().plusMinutes(settings.getLongBreakFor60minLesson().getMinute());
-                }else{
-                    start = lessonBefore.get().getEndTime().plusMinutes(settings.getBreakAfter60minLesson().getMinute());
-                }
+            if(lessonBefore.get().getLessonNumber()==6 && lessonBefore.get().isRevalidationLesson() ){
+                start = lessonBefore.get().getEndTime().plusMinutes(settings.getLongBreak().getMinute());
             }else{
-                if(lessonBefore.get().getLessonNumber()==settings.getLongBreakAfterLesson()){
-                    start = lessonBefore.get().getEndTime().plusMinutes(settings.getLongBreakFor45minLesson().getMinute());
-                }else{
-                    start = lessonBefore.get().getEndTime().plusMinutes(settings.getBreakAfter45minLesson().getMinute());
-                }
+                start = lessonBefore.get().getEndTime().plusMinutes(settings.getShortBreak().getMinute());
             }
         }
         return start;

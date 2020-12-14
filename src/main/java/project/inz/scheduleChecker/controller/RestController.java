@@ -23,20 +23,17 @@ public class RestController {
     private final TeacherService teacherService;
     private final DayService dayService;
     private final SettingService settingService;
-    private final ClassService classService;
 
     public RestController(PlanService planService,
                               LessonService lessonService,
                               TeacherService teacherService,
                               DayService dayService,
-                              SettingService settingService,
-                              ClassService classService) {
+                              SettingService settingService) {
         this.planService = planService;
         this.lessonService = lessonService;
         this.teacherService = teacherService;
         this.dayService = dayService;
         this.settingService = settingService;
-        this.classService = classService;
     }
 
     @PostMapping(value = "/addLessonRest")
@@ -49,7 +46,7 @@ public class RestController {
                 className=cookie.getValue();
             }
         }
-        Day day =dayService.findByIdNoOptional(Long.parseLong(restLesson.getDay()));
+        Day day = dayService.findByIdNoOptional(Long.parseLong(restLesson.getDay()));
         LocalTime start = getStartTime(Integer.parseInt(restLesson.getLessonNumber()), day);
         LocalTime stop = getEndTime(start,Boolean.parseBoolean(restLesson.getRevalidation()));
         Plan plan = planService.findPlanByClass(className);
@@ -77,19 +74,10 @@ public class RestController {
             Optional<Lesson> lessonBefore = lessons.stream()
                     .sorted(Comparator.comparing(Lesson::getLessonNumber).reversed())
                     .findFirst();
-            log.warn("{}",lessonBefore.toString());
-            if(lessonBefore.get().isRevalidationLesson()){
-                if(lessonBefore.get().getLessonNumber()==settings.getLongBreakAfterLesson()){
-                    start = lessonBefore.get().getEndTime().plusMinutes(settings.getLongBreakFor60minLesson().getMinute());
-                }else{
-                    start = lessonBefore.get().getEndTime().plusMinutes(settings.getBreakAfter60minLesson().getMinute());
-                }
+            if(lessonBefore.get().getLessonNumber()==6 && lessonBefore.get().isRevalidationLesson()){
+                start = lessonBefore.get().getEndTime().plusMinutes(settings.getLongBreak().getMinute());
             }else{
-                if(lessonBefore.get().getLessonNumber()==settings.getLongBreakAfterLesson()){
-                    start = lessonBefore.get().getEndTime().plusMinutes(settings.getLongBreakFor45minLesson().getMinute());
-                }else{
-                    start = lessonBefore.get().getEndTime().plusMinutes(settings.getBreakAfter45minLesson().getMinute());
-                }
+                start = lessonBefore.get().getEndTime().plusMinutes(settings.getShortBreak().getMinute());
             }
         }
         return start;
