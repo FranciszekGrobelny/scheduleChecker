@@ -55,12 +55,11 @@ public class ClassController {
     @PostMapping("/addClass")
     public String addClass(HttpServletResponse response,
                            @RequestParam String name,
-                           @RequestParam String arabicName,
                            @RequestParam long teacherId,
                            @RequestParam int lessonsHoursQuantity) {
         try {
             List<TopicWithHoursQuantity> topicsList = new ArrayList<>();
-            Class clas = new Class(name,arabicName,teacherService.findTeacherById(teacherId),lessonsHoursQuantity, topicsList);
+            Class clas = new Class(name,teacherService.findTeacherById(teacherId),lessonsHoursQuantity, topicsList);
             if(planService.findPlanByClassOpt(name).isEmpty()){
                 classService.save(clas);
                 planService.save(new Plan(clas));

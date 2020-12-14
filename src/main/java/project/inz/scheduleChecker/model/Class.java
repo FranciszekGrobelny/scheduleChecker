@@ -15,8 +15,6 @@ public class Class extends ParentEntity {
 
     private String name;
 
-    private String arabicName;
-
     @OneToOne
     private Teacher mainTeacher;
 
@@ -28,9 +26,8 @@ public class Class extends ParentEntity {
     public Class() {
     }
 
-    public Class(String name, String arabicName, Teacher teacher, int lessonsHoursQuantity, List<TopicWithHoursQuantity> topicWithHoursQuantities) {
+    public Class(String name,  Teacher teacher, int lessonsHoursQuantity, List<TopicWithHoursQuantity> topicWithHoursQuantities) {
         this.name = name;
-        this.arabicName = arabicName;
         this.mainTeacher = teacher;
         this.lessonsHoursQuantity = lessonsHoursQuantity;
         this.topicsWithHoursQuantities = topicWithHoursQuantities;
